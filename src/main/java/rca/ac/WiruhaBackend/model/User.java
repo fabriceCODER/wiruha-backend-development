@@ -9,7 +9,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @lombok.Setter
+    @lombok.Getter
     private String username;
+    //    private String address;
     private String password;
     private boolean enabled;
 
@@ -19,6 +22,12 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+//    public User(String fullname, String email) {
+//
+//        this.fullname = fullname;
+//        this.email = email;
+//    }
 
     public User() {
 
@@ -66,9 +75,36 @@ public class User {
 
     public User(Long id, String username, String password, boolean enabled, Set<Role> roles) {
         this.id = id;
+//        this.fullname = fullname;
         this.username = username;
+//        this.email = email;
         this.password = password;
         this.enabled = enabled;
         this.roles = roles;
     }
+
+//    public String getEmail() {
+//        return email;
+//    }
+
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
+//
+//    public String getCategory() {
+//        return category;
+//    }
+//
+//    public void setCategory(String category) {
+//        this.category = category;
+//    }
+//
+//    public String getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(String address) {
+//        this.address = address;
+//    }
+//}
 }
