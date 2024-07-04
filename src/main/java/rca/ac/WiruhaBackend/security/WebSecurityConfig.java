@@ -5,19 +5,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
 import javax.sql.DataSource;
 
 @Configuration
-@EnableWebSecurity
-@EnableWebMvc
 public class WebSecurityConfig {
 
     @Bean
@@ -26,9 +21,6 @@ public class WebSecurityConfig {
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/", "/home", "/register").permitAll()
-//                                .requestMatchers(antMatcher("/home/**")).hasRole("USER")
-//                                .requestMatchers(antMatcher(HttpMethod.POST, "/user/**")).hasRole("ADMIN")
-//                                .requestMatchers(regexMatcher(".*\\?x=y")).hasRole("SPECIAL") // matches /any/path?x=y
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
@@ -52,9 +44,6 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-//    public PasswordDecoder passwordDecoder(){
-//        return new BCryptPasswordDecoder()
-//    }
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth, DataSource dataSource) throws Exception {
         auth.jdbcAuthentication()
